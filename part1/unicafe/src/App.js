@@ -10,9 +10,10 @@ const Button = ({ handleClick, text }) => {
 
 const StatisticsLine = ({ number, text }) => {
   return (
-    <div>
-      {text} {number}
-    </div>
+    <tr>
+      <td>{text}</td>
+      <td>{number}</td>
+    </tr>
   );
 };
 
