@@ -9,7 +9,7 @@ const Persons = ({ persons, nameFilter }) => {
             .filter((person) => person.name.includes(nameFilter))
             .map((person, index) => (
               <div key={person.name + index}>
-                {person.name} {person.phone}
+                {person.name} {person.number}
               </div>
             ))}
     </>
