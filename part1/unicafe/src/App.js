@@ -44,6 +44,12 @@ const App = () => {
       <ListReview number={good} text="good" />
       <ListReview number={neutral} text="neutral" />
       <ListReview number={bad} text="bad" />
+      <ListReview number={good + neutral + bad} text="all" />
+      <ListReview
+        number={(good - bad) / (good + bad + neutral)}
+        text="average"
+      />
+      <ListReview number={good / (good + neutral + bad)} text="positive" />
     </>
   );
 };
