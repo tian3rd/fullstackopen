@@ -20,7 +20,7 @@ const Total = ({ parts }) => {
 };
 
 const Header = ({ course }) => {
-  return <h1>{course}</h1>;
+  return <h2>{course}</h2>;
 };
 
 const Content = ({ parts }) => {
@@ -99,7 +99,12 @@ const App = () => {
     },
   ];
 
-  return <Courses courses={courses} />;
+  return (
+    <>
+      <h1>Web Development Curriculum</h1>
+      <Courses courses={courses} />
+    </>
+  );
 };
 
 export default App;
