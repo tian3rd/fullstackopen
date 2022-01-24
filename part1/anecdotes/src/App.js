@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 
+const NextAnecBtn = ({ handleClick }) => {
+  return <button onClick={handleClick}>Next anecdote</button>;
+};
+
 const App = () => {
   const anecdotes = [
     "If it hurts, do it more often",
@@ -11,9 +15,38 @@ const App = () => {
     "Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients",
   ];
 
-  const [selected, setSelected] = useState(0);
+  const votes = anecdotes.map((_) => 0);
 
-  return <div>{anecdotes[selected]}</div>;
+  const generateRandomIndex = (array) => {
+    return Math.floor(Math.random() * array.length);
+  };
+
+  const [selected, setSelected] = useState(generateRandomIndex(anecdotes));
+  const [vote, setVote] = useState(votes);
+
+  const generateNewAnecdote = (array) => () => {
+    // in case it's the same anecdote
+    let newSelected = generateRandomIndex(array);
+    while (newSelected === selected) {
+      newSelected = generateRandomIndex(array);
+    }
+    setSelected(newSelected);
+  };
+
+  const updateVote = () => {
+    const newVote = [...vote];
+    newVote[selected] += 1;
+    setVote(newVote);
+  };
+
+  return (
+    <div>
+      <p>{anecdotes[selected]}</p>
+      <p>has {vote[selected]} votes</p>
+      <button onClick={updateVote}>vote</button>
+      <NextAnecBtn handleClick={generateNewAnecdote(anecdotes)} />
+    </div>
+  );
 };
 
 export default App;
