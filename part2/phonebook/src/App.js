@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: "Arto Hellas", phone: "111" },
+    { name: "Arto Hellas", phone: "111", id: 1 },
   ]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
@@ -10,12 +10,13 @@ const App = () => {
 
   const addNameAndNumber = (name, phone) => (event) => {
     event.preventDefault();
+    const newId = persons.length + 1;
     if (persons.map((person) => person.name).includes(name)) {
       // use a template literal to create a new error message
       alert(`${name} is already added to phonebook`);
     } else {
       // it's a dictionary object, but can be abbreviated to just variable name (or use name: name, phone: phone)
-      setPersons(persons.concat({ name, phone }));
+      setPersons(persons.concat({ name, phone, id: newId }));
     }
     // don't forget to clear the name input
     setNewName("");
