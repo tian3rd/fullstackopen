@@ -8,7 +8,7 @@ const Button = ({ handleClick, text }) => {
   return <button onClick={handleClick}>{text}</button>;
 };
 
-const ListReview = ({ number, text }) => {
+const StatisticsLine = ({ number, text }) => {
   return (
     <div>
       {text} {number}
@@ -20,15 +20,18 @@ const Statistics = ({ good, bad, neutral }) => {
   if (good + bad + neutral > 0) {
     return (
       <>
-        <ListReview number={good} text="good" />
-        <ListReview number={neutral} text="neutral" />
-        <ListReview number={bad} text="bad" />
-        <ListReview number={good + neutral + bad} text="all" />
-        <ListReview
+        <StatisticsLine number={good} text="good" />
+        <StatisticsLine number={neutral} text="neutral" />
+        <StatisticsLine number={bad} text="bad" />
+        <StatisticsLine number={good + neutral + bad} text="all" />
+        <StatisticsLine
           number={(good - bad) / (good + bad + neutral)}
           text="average"
         />
-        <ListReview number={good / (good + neutral + bad)} text="positive" />
+        <StatisticsLine
+          number={good / (good + neutral + bad)}
+          text="positive"
+        />
       </>
     );
   } else {
