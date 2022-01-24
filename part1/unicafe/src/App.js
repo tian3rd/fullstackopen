@@ -17,19 +17,23 @@ const ListReview = ({ number, text }) => {
 };
 
 const Statistics = ({ good, bad, neutral }) => {
-  return (
-    <>
-      <ListReview number={good} text="good" />
-      <ListReview number={neutral} text="neutral" />
-      <ListReview number={bad} text="bad" />
-      <ListReview number={good + neutral + bad} text="all" />
-      <ListReview
-        number={(good - bad) / (good + bad + neutral)}
-        text="average"
-      />
-      <ListReview number={good / (good + neutral + bad)} text="positive" />
-    </>
-  );
+  if (good + bad + neutral > 0) {
+    return (
+      <>
+        <ListReview number={good} text="good" />
+        <ListReview number={neutral} text="neutral" />
+        <ListReview number={bad} text="bad" />
+        <ListReview number={good + neutral + bad} text="all" />
+        <ListReview
+          number={(good - bad) / (good + bad + neutral)}
+          text="average"
+        />
+        <ListReview number={good / (good + neutral + bad)} text="positive" />
+      </>
+    );
+  } else {
+    return <p>No feedback given</p>;
+  }
 };
 
 const App = () => {
