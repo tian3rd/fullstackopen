@@ -6,7 +6,13 @@ const App = () => {
 
   const addName = (name) => (event) => {
     event.preventDefault();
-    setPersons(persons.concat({ name }));
+    if (persons.map((person) => person.name).includes(name)) {
+      // use a template literal to create a new error message
+      alert(`${name} is already added to phonebook`);
+    } else {
+      setPersons(persons.concat({ name }));
+    }
+    // don't forget to clear the name input
     setNewName("");
   };
 
