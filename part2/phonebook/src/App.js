@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 
 const App = () => {
-  const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
+  const [persons, setPersons] = useState([
+    { name: "Arto Hellas", phone: "111" },
+  ]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
+  const [nameFilter, setNameFilter] = useState("");
 
   const addNameAndNumber = (name, phone) => (event) => {
     event.preventDefault();
@@ -27,9 +30,16 @@ const App = () => {
     setNewNumber(event.target.value);
   };
 
+  const filterByName = (event) => {
+    setNameFilter(event.target.value);
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
+      <div>
+        filter shown with <input value={nameFilter} onChange={filterByName} />
+      </div>
       <form onSubmit={addNameAndNumber(newName, newNumber)}>
         <div>
           name: <input value={newName} onChange={showNewName} />
@@ -42,9 +52,16 @@ const App = () => {
         </div>
       </form>
       <h2>Numbers</h2>
-      {persons.map((person, index) => (
-        <div key={person.name + index}>{person.name}</div>
-      ))}
+      {nameFilter === ""
+        ? ""
+        : persons
+            .filter((person) => person.name.includes(nameFilter))
+            .map((person, index) => (
+              <div key={person.name + index}>
+                {person.name} {person.phone}
+              </div>
+            ))}
+      {}
       <div>debug: {newName}</div>
     </div>
   );
