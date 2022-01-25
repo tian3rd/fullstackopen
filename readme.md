@@ -20,4 +20,4 @@ Finished part1 exercises, started part2.
 
 ### Day 4
 
-Finished part2 exercises.
+Finished part2 exercises, started part3.
