@@ -26,8 +26,22 @@ const App = () => {
         .map((person) => person.name.toLowerCase())
         .includes(name.toLowerCase())
     ) {
-      // use a template literal to create a new error message
-      alert(`${name} is already added to numberbook`);
+      // // use a template literal to create a new error message
+      // alert(`${name} is already added to numberbook`);
+      let confirmation = window.confirm(
+        `${name} is already added to numberbook, replace the old number with the new one ${number}?`
+      );
+      if (confirmation) {
+        const id = persons.find(
+          (person) => person.name.toLowerCase() === name.toLowerCase()
+        ).id;
+        personService.update(id, { name, number }).then((response) => {
+          // response is the new person data
+          setPersons(
+            persons.map((person) => (person.id !== id ? person : response))
+          );
+        });
+      }
     } else {
       // const newPerson = { name, number, id: newId };
       const newPerson = { name, number };
