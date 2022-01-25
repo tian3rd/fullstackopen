@@ -19,7 +19,8 @@ const App = () => {
 
   const addNameAndNumber = (name, number) => (event) => {
     event.preventDefault();
-    const newId = persons.length + 1;
+    // let server generate id for us to avoid trouble in delete operations
+    // const newId = persons.length + 1;
     if (
       persons
         .map((person) => person.name.toLowerCase())
@@ -28,7 +29,8 @@ const App = () => {
       // use a template literal to create a new error message
       alert(`${name} is already added to numberbook`);
     } else {
-      const newPerson = { name, number, id: newId };
+      // const newPerson = { name, number, id: newId };
+      const newPerson = { name, number };
       // post to backend server
       personService.create(newPerson).then((response) => {
         console.log(response);
