@@ -20,7 +20,11 @@ const App = () => {
   const addNameAndNumber = (name, number) => (event) => {
     event.preventDefault();
     const newId = persons.length + 1;
-    if (persons.map((person) => person.name).includes(name)) {
+    if (
+      persons
+        .map((person) => person.name.toLowerCase())
+        .includes(name.toLowerCase())
+    ) {
       // use a template literal to create a new error message
       alert(`${name} is already added to numberbook`);
     } else {
