@@ -19,15 +19,20 @@ const App = () => {
     });
   }, []);
 
-  const addNameAndNumber = (name, phone) => (event) => {
+  const addNameAndNumber = (name, number) => (event) => {
     event.preventDefault();
     const newId = persons.length + 1;
     if (persons.map((person) => person.name).includes(name)) {
       // use a template literal to create a new error message
-      alert(`${name} is already added to phonebook`);
+      alert(`${name} is already added to numberbook`);
     } else {
-      // it's a dictionary object, but can be abbreviated to just variable name (or use name: name, phone: phone)
-      setPersons(persons.concat({ name, phone, id: newId }));
+      const newPerson = { name, number, id: newId };
+      axios
+        .post("http://localhost:3001/persons", newPerson)
+        .then((response) => {
+          // it's a dictionary object, but can be abbreviated to just variable name (or use name: name, number: number)
+          setPersons(persons.concat(newPerson));
+        });
     }
     // don't forget to clear the name input
     setNewName("");
