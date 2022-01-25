@@ -16,7 +16,10 @@ const Persons = ({ persons, nameFilter }) => {
       {nameFilter === ""
         ? ""
         : persons
-            .filter((person) => person.name.includes(nameFilter))
+            .filter((person) =>
+              // note upper and lower case
+              person.name.toLowerCase().includes(nameFilter.toLowerCase())
+            )
             .map((person, index) => (
               <div key={person.name + index}>
                 {person.name} {person.number}
