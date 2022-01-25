@@ -14,9 +14,14 @@ const App = () => {
   const [msg, setMsg] = useState(null);
 
   useEffect(() => {
-    personService.getAll().then((response) => {
-      setPersons(response);
-    });
+    personService
+      .getAll()
+      .then((response) => {
+        setPersons(response);
+      })
+      .catch((error) => {
+        console.log("failed to initialize effect");
+      });
   }, []);
 
   const addNameAndNumber = (name, number) => (event) => {
@@ -37,30 +42,50 @@ const App = () => {
         const id = persons.find(
           (person) => person.name.toLowerCase() === name.toLowerCase()
         ).id;
-        personService.update(id, { name, number }).then((response) => {
-          // response is the new person data
-          setPersons(
-            persons.map((person) => (person.id !== id ? person : response))
-          );
-        });
-        // update the message and disappear after some time via updating Notification
-        setMsg(`Updated ${name}'s number to ${number}`);
-        setTimeout(() => {
-          setMsg(null);
-        }, 5000);
+        personService
+          .update(id, { name, number })
+          .then((response) => {
+            // response is the new person data
+            setPersons(
+              persons.map((person) => (person.id !== id ? person : response))
+            );
+            // update the message and disappear after some time via updating Notification
+            setMsg(`Updated ${name}'s number to ${number}`);
+            setTimeout(() => {
+              setMsg(null);
+            }, 5000);
+          })
+          .catch((error) => {
+            console.log("failed to update");
+            setPersons(persons.filter((person) => person.id !== id));
+            setMsg(`${name} has already been deleted from server`);
+            setTimeout(() => {
+              setMsg(null);
+            }, 5000);
+          });
       }
     } else {
       // const newPerson = { name, number, id: newId };
       const newPerson = { name, number };
       // post to backend server
-      personService.create(newPerson).then((response) => {
-        console.log(response);
-        setPersons(persons.concat(response));
-      });
-      setMsg(`Added ${name} with number ${number}`);
-      setTimeout(() => {
-        setMsg(null);
-      }, 5000);
+      personService
+        .create(newPerson)
+        .then((response) => {
+          console.log(response);
+          setPersons(persons.concat(response));
+          setMsg(`Added ${name} with number ${number}`);
+          setTimeout(() => {
+            setMsg(null);
+          }, 5000);
+        })
+        .catch((error) => {
+          console.log("failed to create");
+          setPersons(persons.filter((person) => person.name !== name));
+          setMsg(`${name} has already been deleted from server`);
+          setTimeout(() => {
+            setMsg(null);
+          }, 5000);
+        });
     }
     // don't forget to clear the name input
     setNewName("");
