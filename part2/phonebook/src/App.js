@@ -4,12 +4,14 @@ import Filter from "./components/Filter";
 import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import personService from "./services/persons";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [nameFilter, setNameFilter] = useState("");
+  const [msg, setMsg] = useState(null);
 
   useEffect(() => {
     personService.getAll().then((response) => {
@@ -41,6 +43,11 @@ const App = () => {
             persons.map((person) => (person.id !== id ? person : response))
           );
         });
+        // update the message and disappear after some time via updating Notification
+        setMsg(`Updated ${name}'s number to ${number}`);
+        setTimeout(() => {
+          setMsg(null);
+        }, 5000);
       }
     } else {
       // const newPerson = { name, number, id: newId };
@@ -50,6 +57,10 @@ const App = () => {
         console.log(response);
         setPersons(persons.concat(response));
       });
+      setMsg(`Added ${name} with number ${number}`);
+      setTimeout(() => {
+        setMsg(null);
+      }, 5000);
     }
     // don't forget to clear the name input
     setNewName("");
@@ -71,6 +82,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification className="notification" message={msg} />
       <Filter name={nameFilter} handleOnChange={filterByName} />
       <PersonForm
         newName={newName}
