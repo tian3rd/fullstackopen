@@ -3,6 +3,8 @@ import CountryView from "./CountryView";
 
 const Countries = ({ countries, countryName }) => {
   //   const [showState, setShowState] = useState(false);
+  //   maybe need to use a dictionary to update the show state of each country filtered
+  //   and it's reset everytime the filtere's changed
   const [shownCountry, setShownCountry] = useState(null);
 
   const showCountry = (country) => () => {
