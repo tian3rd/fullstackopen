@@ -23,4 +23,12 @@ const update = (id, newPerson) => {
   });
 };
 
-export default { getAll, create, update };
+const erase = (id) => {
+  const request = axios.delete(`${baseURL}/${id}`);
+  return request.then((response) => {
+    console.log(response);
+    return response.data;
+  });
+};
+
+export default { getAll, create, update, erase };
