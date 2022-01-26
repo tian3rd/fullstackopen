@@ -6,7 +6,7 @@ import axios from "axios";
 // connect to heroku backend server
 // const baseURL = "https://infinite-ridge-50582.herokuapp.com/api/persons";
 // because frontend and backend are on same servers, can use relative url here
-const baseURL = "/api/notes";
+const baseURL = "/api/persons";
 
 const getAll = () => {
   const request = axios.get(baseURL);
