@@ -1,6 +1,10 @@
 import React from "react";
 import axios from "axios";
-const baseURL = "http://localhost:3001/persons";
+// const baseURL = "http://localhost:3001/persons";
+// connect to local backend server
+// const baseURL = "http://localhost:3001/api/persons";
+// connect to heroku backend server
+const baseURL = "https://infinite-ridge-50582.herokuapp.com/api/persons";
 
 const getAll = () => {
   const request = axios.get(baseURL);
