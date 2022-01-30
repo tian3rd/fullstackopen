@@ -85,7 +85,9 @@ const App = () => {
           console.log("failed to create");
           setPersons(persons.filter((person) => person.name !== name));
           if (errorDetail.errorName === "ValidationError") {
-            setMsg(`${name} is too short, please enter another name`);
+            setMsg(
+              `Error occurred: ${errorDetail.errorName}\nError message: ${errorDetail.error}`
+            );
           } else {
             setMsg(`${name} has already been deleted from server`);
           }
