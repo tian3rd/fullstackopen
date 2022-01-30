@@ -79,9 +79,16 @@ const App = () => {
           }, 5000);
         })
         .catch((error) => {
+          // console.log(error);
+          let errorDetail = error.response.data;
+          console.log(errorDetail);
           console.log("failed to create");
           setPersons(persons.filter((person) => person.name !== name));
-          setMsg(`${name} has already been deleted from server`);
+          if (errorDetail.errorName === "ValidationError") {
+            setMsg(`${name} is too short, please enter another name`);
+          } else {
+            setMsg(`${name} has already been deleted from server`);
+          }
           setTimeout(() => {
             setMsg(null);
           }, 5000);
