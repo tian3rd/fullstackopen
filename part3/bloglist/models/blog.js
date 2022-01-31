@@ -1,16 +1,6 @@
+const logger = require("../utils/logger");
+const config = require("../utils/config");
 const mongoose = require("mongoose");
-
-const url = process.env.MONGODB_URI || "mongodb://localhost/bloglist";
-
-mongoose
-	.connect(url, { useNewUrlParser: true })
-	.then(() => {
-		console.log("Connected to MongoDB", url);
-	})
-	.catch((err) => {
-		console.log("Error connecting to MongoDB", err.message);
-		process.exit(1);
-	});
 
 const blogSchema = new mongoose.Schema({
 	title: String,
