@@ -51,23 +51,23 @@ const blogs = [
   },
 ];
 
+const listWithOneBlog = [
+  {
+    _id: "5a422aa71b54a676234d17f8",
+    title: "Go To Statement Considered Harmful",
+    author: "Edsger W. Dijkstra",
+    url: "http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html",
+    likes: 5,
+    __v: 0,
+  },
+];
+
 test("dummy returns 1", () => {
   const result = listHelper.dummy(blogs);
   expect(result).toBe(1);
 });
 
 describe("total likes", () => {
-  const listWithOneBlog = [
-    {
-      _id: "5a422aa71b54a676234d17f8",
-      title: "Go To Statement Considered Harmful",
-      author: "Edsger W. Dijkstra",
-      url: "http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html",
-      likes: 5,
-      __v: 0,
-    },
-  ];
-
   test("when list has only one blog, equals the likes of that", () => {
     const result = listHelper.totalLikes(listWithOneBlog);
     expect(result).toBe(5);
@@ -76,5 +76,17 @@ describe("total likes", () => {
   test("full list of blogs", () => {
     const result = listHelper.totalLikes(blogs);
     expect(result).toBe(36);
+  });
+});
+
+describe("Find out the favorite blog", () => {
+  test("when list has only one blog, equals itself", () => {
+    const result = listHelper.favoriteBlog(listWithOneBlog);
+    expect(result).toEqual(listWithOneBlog[0]);
+  });
+
+  test("full list of blogs, find out fav", () => {
+    const result = listHelper.favoriteBlog(blogs);
+    expect(result).toEqual(blogs[2]);
   });
 });
