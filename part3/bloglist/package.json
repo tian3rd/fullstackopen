@@ -1,19 +1,26 @@
 {
-  "name": "bloglist",
-  "version": "1.0.0",
-  "description": "a blog list app using express",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [
-    "express",
-    "blog"
-  ],
-  "author": "Tian",
-  "license": "MIT",
-  "dependencies": {
-    "cors": "^2.8.5",
-    "mongoose": "^6.1.8"
-  }
+	"name": "bloglist",
+	"version": "1.0.0",
+	"description": "a blog list app using express",
+	"main": "index.js",
+	"scripts": {
+		"start": "node index.js",
+		"test": "echo \"Error: no test specified\" && exit 1",
+		"dev": "nodemon index.js"
+	},
+	"keywords": [
+		"express",
+		"blog"
+	],
+	"author": "Tian",
+	"license": "MIT",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"dotenv": "^14.3.2",
+		"express": "^4.17.2",
+		"mongoose": "^6.1.8"
+	},
+	"devDependencies": {
+		"nodemon": "^2.0.15"
+	}
 }
