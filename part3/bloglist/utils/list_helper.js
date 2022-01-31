@@ -28,9 +28,26 @@ const mostBlogs = (blogs) => {
   return { author: maxBlogAuthor, blogs: maxBlogs };
 };
 
+const mostLikes = (blogs) => {
+  // how to use lodash to efficiently calculate the sum of likes?
+  const likesAuthors = {};
+  blogs.forEach((blog) => {
+    if (!likesAuthors[blog.author]) {
+      likesAuthors[blog.author] = 0;
+    }
+    likesAuthors[blog.author] += blog.likes;
+  });
+  const maxLikes = Math.max(...Object.values(likesAuthors));
+  const maxLikesAuthor = Object.keys(likesAuthors).find(
+    (author) => likesAuthors[author] === maxLikes
+  );
+  return { author: maxLikesAuthor, likes: maxLikes };
+};
+
 module.exports = {
   dummy,
   totalLikes,
   favoriteBlog,
   mostBlogs,
+  mostLikes,
 };
