@@ -17,7 +17,10 @@ const favoriteBlog = (blogs) => {
 
 const mostBlogs = (blogs) => {
   // how to use lodash to filter by value / find out k-v pair with highest value?
-  const blogsAuthors = _.countBy(blogs, "author");
+  //   const blogsAuthors = _.countBy(blogs, "author");
+  const blogsAuthors = _.countBy(blogs, (blog) => {
+    return blog.author;
+  });
   const maxBlogs = Math.max(...Object.values(blogsAuthors));
   const maxBlogAuthor = Object.keys(blogsAuthors).find(
     (author) => blogsAuthors[author] === maxBlogs
