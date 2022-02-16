@@ -2,7 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateVote } from "../reducers/anecdoteReducer";
 
 const AnecdoteList = () => {
-	const anecdotes = useSelector((state) => state);
+	// use configureStore to create the store, so the list is within state object
+	const anecdotes = useSelector((state) => state.anecdotes);
 	const dispatch = useDispatch();
 
 	const vote = (id) => {

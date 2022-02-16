@@ -1,3 +1,5 @@
+import { createSlice } from "@reduxjs/toolkit";
+
 const anecdotesAtStart = [
 	"If it hurts, do it more often",
 	"Adding manpower to a late software project makes it later!",
@@ -19,40 +21,70 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject);
 
-const reducer = (state = initialState, action) => {
-	console.log("state now: ", state);
-	console.log("action", action);
+// const reducer = (state = initialState, action) => {
+// 	console.log("state now: ", state);
+// 	console.log("action", action);
 
-	switch (action.type) {
-		case "VOTE":
-			const id = action.id;
-			const updatedAnecdote = state.find((anecdote) => anecdote.id === id);
+// 	switch (action.type) {
+// 		case "VOTE":
+// 			const id = action.id;
+// 			const updatedAnecdote = state.find((anecdote) => anecdote.id === id);
+// 			updatedAnecdote.votes += 1;
+// 			return state
+// 				.map((anecdote) => (anecdote.id === id ? updatedAnecdote : anecdote))
+// 				.sort((a, b) => b.votes - a.votes);
+// 		case "ADD_ANECDOTE":
+// 			return [...state, asObject(action.content)].sort(
+// 				(a, b) => b.votes - a.votes
+// 			);
+// 	}
+
+// 	return state;
+// };
+
+const anecdoteSlice = createSlice({
+	name: "anecdotes",
+	initialState,
+	reducers: {
+		updateVote(state, action) {
+			console.log("state now: ", state);
+			console.log("action", action);
+			const id = action.payload;
+			// because each anecdote is an object, so without spreading, the changes affects the original
+			const updatedAnecdote = {
+				...state.find((anecdote) => anecdote.id === id),
+			};
 			updatedAnecdote.votes += 1;
-			return state
-				.map((anecdote) => (anecdote.id === id ? updatedAnecdote : anecdote))
-				.sort((a, b) => b.votes - a.votes);
-		case "ADD_ANECDOTE":
-			return [...state, asObject(action.content)].sort(
+			const newState = state.map((anecdote) =>
+				anecdote.id === id ? updatedAnecdote : anecdote
+			);
+			return newState.sort((a, b) => b.votes - a.votes);
+			// // can mutate here with the following 2 lines
+			// state.find((anecdote) => anecdote.id === id).votes += 1;
+			// state.sort((a, b) => b.votes - a.votes);
+		},
+		addAnecdote(state, action) {
+			return [...state, asObject(action.payload)].sort(
 				(a, b) => b.votes - a.votes
 			);
-	}
+		},
+	},
+});
 
-	return state;
-};
+// // action creators
+// export const updateVote = (id) => {
+// 	return {
+// 		type: "VOTE",
+// 		id,
+// 	};
+// };
 
-// action creators
-export const updateVote = (id) => {
-	return {
-		type: "VOTE",
-		id,
-	};
-};
+// export const addAnecdote = (content) => {
+// 	return {
+// 		type: "ADD_ANECDOTE",
+// 		content,
+// 	};
+// };
 
-export const addAnecdote = (content) => {
-	return {
-		type: "ADD_ANECDOTE",
-		content,
-	};
-};
-
-export default reducer;
+export const { updateVote, addAnecdote } = anecdoteSlice.actions;
+export default anecdoteSlice.reducer;
