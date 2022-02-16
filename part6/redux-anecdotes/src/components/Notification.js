@@ -1,14 +1,17 @@
-const Notification = () => {
-  const style = {
-    border: 'solid',
-    padding: 10,
-    borderWidth: 1
-  }
-  return (
-    <div style={style}>
-      render here notification...
-    </div>
-  )
-}
+import { useSelector } from "react-redux";
 
-export default Notification
+const Notification = () => {
+	const notification = useSelector((state) => state.notification);
+	const style =
+		notification.message === ""
+			? // { display: "none" } or {visibility: "hidden"} or { opacity: 0 } don't take up space, how to solve it?
+			  { opacity: 0 }
+			: {
+					border: "solid",
+					padding: 10,
+					borderWidth: 1,
+			  };
+	return <div style={style}>{notification.message + " "}</div>;
+};
+
+export default Notification;
