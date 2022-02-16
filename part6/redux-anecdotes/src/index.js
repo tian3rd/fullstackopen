@@ -7,6 +7,7 @@ import App from "./App";
 import reducer from "./reducers/anecdoteReducer";
 import notificationReducer from "./reducers/notificationReducer";
 import filterReducer from "./reducers/filterReducer";
+// import anecdoteService from "./services/anecdotes";
 
 // const store = createStore(reducer)
 const store = configureStore({
@@ -16,6 +17,11 @@ const store = configureStore({
 		filter: filterReducer,
 	},
 });
+
+// // move fetching data to App.js intead of in here
+// anecdoteService.getAll().then((anecdotes) => {
+// 	store.dispatch(initializeAnecdotes(anecdotes));
+// });
 
 console.log("store state", store.getState());
 
