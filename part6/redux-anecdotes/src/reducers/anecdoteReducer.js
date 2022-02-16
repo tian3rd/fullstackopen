@@ -40,4 +40,19 @@ const reducer = (state = initialState, action) => {
 	return state;
 };
 
+// action creators
+export const updateVote = (id) => {
+	return {
+		type: "VOTE",
+		id,
+	};
+};
+
+export const addAnecdote = (content) => {
+	return {
+		type: "ADD_ANECDOTE",
+		content,
+	};
+};
+
 export default reducer;
