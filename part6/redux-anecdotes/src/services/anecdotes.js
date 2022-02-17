@@ -9,4 +9,16 @@ const getAll = async () => {
 	return response.data;
 };
 
-export default { getAll };
+const addNewAnecdoteEntry = async (content) => {
+	const newAnecdote = {
+		content,
+		id: (100000 * Math.random()).toFixed(0),
+		votes: 0,
+	};
+	// post here only returns the new entry after writing to db.json
+	const response = await axios.post(baseURL, newAnecdote);
+	console.log("response.data: ", response.data);
+	return response.data;
+};
+
+export default { getAll, addNewAnecdoteEntry };

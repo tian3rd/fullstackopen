@@ -57,13 +57,19 @@ const anecdoteSlice = createSlice({
 			// state.find((anecdote) => anecdote.id === id).votes += 1;
 			// state.sort((a, b) => b.votes - a.votes);
 		},
+		// action.payload is the content of the new anecdote
 		addAnecdote(state, action) {
 			return [...state, asObject(action.payload)].sort(
 				(a, b) => b.votes - a.votes
 			);
 		},
+		// action.payload is an array of anecdotes objects
 		initializeAnecdotes(state, action) {
 			return action.payload;
+		},
+		// action.payload is the whole anecdote object
+		addAnecdoteObj(state, action) {
+			return [...state, action.payload].sort((a, b) => b.votes - a.votes);
 		},
 	},
 });
@@ -83,6 +89,6 @@ const anecdoteSlice = createSlice({
 // 	};
 // };
 
-export const { updateVote, addAnecdote, initializeAnecdotes } =
+export const { updateVote, addAnecdote, initializeAnecdotes, addAnecdoteObj } =
 	anecdoteSlice.actions;
 export default anecdoteSlice.reducer;
