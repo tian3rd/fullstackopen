@@ -11,6 +11,10 @@ const Course = ({ course }) => {
           </p>
         );
       })}
+      <b>
+        total of {course.parts.reduce((p, c) => p + parseInt(c.exercises), 0)}{" "}
+        exercises
+      </b>
     </>
   );
 };
